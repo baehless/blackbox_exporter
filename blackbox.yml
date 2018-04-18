@@ -32,3 +32,8 @@ modules:
       - expect: "^:[^ ]+ 001"
   icmp:
     prober: icmp
+  exec:
+    prober: exec
+    exec:
+      arguments: ["-a"]
+      validation_regex: "^Motion.*Temperature:.*[0-9]$"

@@ -52,6 +52,7 @@ type Module struct {
 	TCP     TCPProbe      `yaml:"tcp,omitempty"`
 	ICMP    ICMPProbe     `yaml:"icmp,omitempty"`
 	DNS     DNSProbe      `yaml:"dns,omitempty"`
+	Exec    ExecProbe     `yaml:"exec,omitempty"`
 
 	// Catches all undefined fields and must be empty after parsing.
 	XXX map[string]interface{} `yaml:",inline"`
@@ -126,6 +127,11 @@ type DNSRRValidator struct {
 
 	// Catches all undefined fields and must be empty after parsing.
 	XXX map[string]interface{} `yaml:",inline"`
+}
+
+type ExecProbe struct {
+	Arguments 		[]string	`yaml:"arguments,omitempty"`
+	ValidationRegex string 		`yaml:"validation_regex,omitempty"`
 }
 
 func checkOverflow(m map[string]interface{}, ctx string) error {
