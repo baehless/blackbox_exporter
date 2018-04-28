@@ -1,39 +1,16 @@
 modules:
-  http_2xx:
-    prober: http
-    http:
-  http_post_2xx:
-    prober: http
-    http:
-      method: POST
-  tcp_connect:
-    prober: tcp
-  pop3s_banner:
-    prober: tcp
-    tcp:
-      query_response:
-      - expect: "^+OK"
-      tls: true
-      tls_config:
-        insecure_skip_verify: false
-  ssh_banner:
-    prober: tcp
-    tcp:
-      query_response:
-      - expect: "^SSH-2.0-"
-  irc_banner:
-    prober: tcp
-    tcp:
-      query_response:
-      - send: "NICK prober"
-      - send: "USER prober prober prober :prober"
-      - expect: "PING :([^ ]+)"
-        send: "PONG ${1}"
-      - expect: "^:[^ ]+ 001"
-  icmp:
-    prober: icmp
-  exec:
+  sensorfetcher_1_16:
     prober: exec
     exec:
-      arguments: ["-a"]
-      validation_regex: "^Motion.*Temperature:.*[0-9]$"
+      arguments: ["-s", "1-16,[192.33.93.173]:42003", "-c", "1-1065,[10.0.2.15]:42001"]
+      validation_regex: "Motion.*"
+  bwtester_1_16:
+    prober: exec
+    exec:
+      arguments: ["-s", "1-16,[192.33.93.173]:30100", "-c", "1-1065,[10.0.2.15]:42001"]
+      validation_regex: "Motion.*"
+  bwtester_1_1019:
+    prober: exec
+    exec:
+      arguments: ["-s", "1-1019,[192.168.1.111]:30100", "-c", "1-1065,[10.0.2.15]:42001"]
+      validation_regex: "Motion.*"
