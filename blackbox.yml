@@ -1,16 +1,9 @@
 modules:
+  http_2xx:
+    prober: http
+    http:
   sensorfetcher_1_16:
     prober: exec
     exec:
-      arguments: ["-s", "1-16,[192.33.93.173]:42003", "-c", "1-1065,[10.0.2.15]:42001"]
-      validation_regex: "Motion.*"
-  bwtester_1_16:
-    prober: exec
-    exec:
-      arguments: ["-s", "1-16,[192.33.93.173]:30100", "-c", "1-1065,[10.0.2.15]:42001"]
-      validation_regex: "Motion.*"
-  bwtester_1_1019:
-    prober: exec
-    exec:
-      arguments: ["-s", "1-1019,[192.168.1.111]:30100", "-c", "1-1065,[10.0.2.15]:42001"]
-      validation_regex: "Motion.*"
+      arguments: ["-s", "1-16,[192.33.93.173]:42003", "-c", "1-1101,[10.0.2.15]:42001"]
+      validation_regex: "(?s).*Temperature.*"
