@@ -41,9 +41,9 @@ vet:
 	@echo ">> vetting code"
 	@$(GO) vet $(pkgs)
 
-staticcheck: $(STATICCHECK)
-	@echo ">> running staticcheck"
-	@$(STATICCHECK) $(pkgs)
+#staticcheck: $(STATICCHECK)
+#	@echo ">> running staticcheck"
+#	@$(STATICCHECK) $(pkgs)
 
 build: $(PROMU)
 	@echo ">> building binaries"
