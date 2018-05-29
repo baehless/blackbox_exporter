@@ -52,7 +52,7 @@ func ProbeImageFetcher(ctx context.Context, target string, module config.Module,
 	//level.Info(logger).Log("msg", "Output of command "+target, "output", string(out))
 	fmt.Println("Output of command imagefetcher", args, ": ", string(out))
 
-	var regex string = module.BWTester.ValidationRegex
+	var regex string = module.ImageFetcher.ValidationRegex
 	if len(regex) == 0 {
 		regex = "(?s).*Done, exiting.*"
 	}

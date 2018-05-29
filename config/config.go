@@ -42,14 +42,16 @@ func (sc *SafeConfig) ReloadConfig(confFile string) (err error) {
 }
 
 type Module struct {
-	Prober       string            `yaml:"prober,omitempty"`
-	Timeout      time.Duration     `yaml:"timeout,omitempty"`
-	HTTP         HTTPProbe         `yaml:"http,omitempty"`
-	TCP          TCPProbe          `yaml:"tcp,omitempty"`
-	ICMP         ICMPProbe         `yaml:"icmp,omitempty"`
-	DNS          DNSProbe          `yaml:"dns,omitempty"`
-	Exec         ExecProbe         `yaml:"exec,omitempty"`
-	ImageFetcher ImageFetcherProbe `yaml:"imagefetcher,omitempty"`
+	Prober        string             `yaml:"prober,omitempty"`
+	Timeout       time.Duration      `yaml:"timeout,omitempty"`
+	HTTP          HTTPProbe          `yaml:"http,omitempty"`
+	TCP           TCPProbe           `yaml:"tcp,omitempty"`
+	ICMP          ICMPProbe          `yaml:"icmp,omitempty"`
+	DNS           DNSProbe           `yaml:"dns,omitempty"`
+	Exec          ExecProbe          `yaml:"exec,omitempty"`
+	ImageFetcher  ImageFetcherProbe  `yaml:"imagefetcher,omitempty"`
+	SensorFetcher SensorFetcherProbe `yaml:"sensorfetcher,omitempty"`
+	BWTester      BWTesterProbe      `yaml:"bwtester,omitempty"`
 
 	// Catches all undefined fields and must be empty after parsing.
 	XXX map[string]interface{} `yaml:",inline"`
@@ -118,6 +120,18 @@ type ExecProbe struct {
 }
 
 type ImageFetcherProbe struct {
+	Client          string `yaml:"client,omitempty"`
+	Timeout         int    `yaml:"timeout,omitempty"`
+	ValidationRegex string `yaml:"validation_regex,omitempty"`
+}
+
+type SensorFetcherProbe struct {
+	Client          string `yaml:"client,omitempty"`
+	Timeout         int    `yaml:"timeout,omitempty"`
+	ValidationRegex string `yaml:"validation_regex,omitempty"`
+}
+
+type BWTesterProbe struct {
 	Client          string `yaml:"client,omitempty"`
 	Timeout         int    `yaml:"timeout,omitempty"`
 	ValidationRegex string `yaml:"validation_regex,omitempty"`

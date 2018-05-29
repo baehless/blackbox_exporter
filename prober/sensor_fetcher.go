@@ -50,7 +50,7 @@ func ProbeSensorFetcher(ctx context.Context, target string, module config.Module
 	//level.Info(logger).Log("msg", "Output of command "+target, "output", string(out))
 	fmt.Println("Output of command sensorfetcher", args, ": ", string(out))
 
-	var regex string = module.BWTester.ValidationRegex
+	var regex string = module.SensorFetcher.ValidationRegex
 	if len(regex) == 0 {
 		regex = "(?s).*Temperature.*"
 	}
