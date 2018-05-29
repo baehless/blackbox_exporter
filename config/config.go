@@ -42,13 +42,14 @@ func (sc *SafeConfig) ReloadConfig(confFile string) (err error) {
 }
 
 type Module struct {
-	Prober  string        `yaml:"prober,omitempty"`
-	Timeout time.Duration `yaml:"timeout,omitempty"`
-	HTTP    HTTPProbe     `yaml:"http,omitempty"`
-	TCP     TCPProbe      `yaml:"tcp,omitempty"`
-	ICMP    ICMPProbe     `yaml:"icmp,omitempty"`
-	DNS     DNSProbe      `yaml:"dns,omitempty"`
-	Exec    ExecProbe     `yaml:"exec,omitempty"`
+	Prober       string            `yaml:"prober,omitempty"`
+	Timeout      time.Duration     `yaml:"timeout,omitempty"`
+	HTTP         HTTPProbe         `yaml:"http,omitempty"`
+	TCP          TCPProbe          `yaml:"tcp,omitempty"`
+	ICMP         ICMPProbe         `yaml:"icmp,omitempty"`
+	DNS          DNSProbe          `yaml:"dns,omitempty"`
+	Exec         ExecProbe         `yaml:"exec,omitempty"`
+	ImageFetcher ImageFetcherProbe `yaml:"imagefetcher,omitempty"`
 
 	// Catches all undefined fields and must be empty after parsing.
 	XXX map[string]interface{} `yaml:",inline"`
@@ -112,8 +113,14 @@ type DNSRRValidator struct {
 }
 
 type ExecProbe struct {
-	Arguments 		[]string	`yaml:"arguments,omitempty"`
-	ValidationRegex string 		`yaml:"validation_regex,omitempty"`
+	Arguments       []string `yaml:"arguments,omitempty"`
+	ValidationRegex string   `yaml:"validation_regex,omitempty"`
+}
+
+type ImageFetcherProbe struct {
+	Client          string `yaml:"client,omitempty"`
+	Timeout         int    `yaml:"timeout,omitempty"`
+	ValidationRegex string `yaml:"validation_regex,omitempty"`
 }
 
 // UnmarshalYAML implements the yaml.Unmarshaler interface.
