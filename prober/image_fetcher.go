@@ -41,7 +41,10 @@ func ProbeImageFetcher(ctx context.Context, target string, module config.Module,
 
 	fmt.Println("Executing command imagefetcher ", args)
 	out, err := cmd.CombinedOutput()
+	// Signal to timer that command has terminated
 	inChan <- true
+	// Remove any .jpg file in the current directory
+	exec.Command("bash", "-c", "find -name \"*.jpg\" -delete").Run()
 	if err != nil {
 		//level.Error(logger).Log("msg", "Error running command", "err", err)
 		fmt.Println("Error in executing imagefetcher", args, ": ", err, string(out))
