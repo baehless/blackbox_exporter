@@ -11,11 +11,6 @@ import (
 	"time"
 )
 
-var (
-	timeout time.Duration = 30
-	regex   string        = "(?s).*Done, exiting.*"
-)
-
 func ProbeImageFetcher(ctx context.Context, target string, module config.Module, registry *prometheus.Registry, logger log.Logger) bool {
 	probeImageFetchedGauge := prometheus.NewGauge(prometheus.GaugeOpts{
 		Name: "probe_image_fetched",
@@ -28,7 +23,11 @@ func ProbeImageFetcher(ctx context.Context, target string, module config.Module,
 	inChan := make(chan bool)
 
 	go func(inChan chan bool) {
-		timer := time.NewTimer(timeout * time.Second)
+		var timeout int = module.ImageFetcher.Timeout
+		if timeout <= 0 {
+			timeout = 20
+		}
+		timer := time.NewTimer(30 * time.Second)
 		// Wait for timer to expire or for completed execution signal
 		select {
 		case <-timer.C:
@@ -51,8 +50,12 @@ func ProbeImageFetcher(ctx context.Context, target string, module config.Module,
 		return false
 	}
 	//level.Info(logger).Log("msg", "Output of command "+target, "output", string(out))
-	fmt.Println("Output of command imagefetcher ", args, ": ", string(out))
+	fmt.Println("Output of command imagefetcher", args, ": ", string(out))
 
+	var regex string = module.BWTester.ValidationRegex
+	if len(regex) == 0 {
+		regex = "(?s).*Done, exiting.*"
+	}
 	matched, err := regexp.MatchString(regex, string(out))
 
 	if err != nil {
@@ -65,7 +68,7 @@ func ProbeImageFetcher(ctx context.Context, target string, module config.Module,
 	if matched {
 		probeImageFetchedGauge.Set(1)
 	} else {
-		fmt.Println("Failed matching output of imagefetcher ", args, "with: ")
+		fmt.Println("Failed matching output of imagefetcher", args, "with:", regex)
 		probeImageFetchedGauge.Set(0)
 	}
 
