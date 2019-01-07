@@ -58,9 +58,6 @@ var (
 		"icmp":          prober.ProbeICMP,
 		"dns":           prober.ProbeDNS,
 		"exec":          prober.ProbeExec,
-		"imagefetcher":  prober.ProbeImageFetcher,
-		"sensorfetcher": prober.ProbeSensorFetcher,
-		"bwtester":      prober.ProbeBWTester,
 	}
 )
 
