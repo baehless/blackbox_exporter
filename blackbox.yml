@@ -2,8 +2,21 @@ modules:
   http_2xx:
     prober: http
     http:
-  sensorfetcher_1_16:
+  camerapp:
     prober: exec
     exec:
-      arguments: ["-s", "1-16,[192.33.93.173]:42003", "-c", "1-1101,[10.0.2.15]:42001"]
-      validation_regex: "(?s).*Temperature.*"
+      arguments: ["-c", "17-ffaa:1:c5,[127.0.0.1]:0", "-s", "17-ffaa:0:1102,[192.33.93.166]:42002"]
+      timeout: 10
+      validation_regex: Done, exiting
+  sensorapp:
+    prober: exec
+    exec:
+      arguments: ["-c", "17-ffaa:1:c5,[127.0.0.1]:0", "-s", "17-ffaa:0:1102,[192.33.93.177]:42003"]
+      timeout: 10
+      validation_regex: Temperature
+  bwtester:
+    prober: exec
+    exec:
+      arguments: ["-c", "17-ffaa:1:c5,[127.0.0.1]:0", "-s", "17-ffaa:0:1102,[192.33.93.177]:30100"]
+      timeout: 30
+      validation_regex: results
