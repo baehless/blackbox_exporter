@@ -52,6 +52,7 @@ type Module struct {
 	ImageFetcher  ImageFetcherProbe  `yaml:"imagefetcher,omitempty"`
 	SensorFetcher SensorFetcherProbe `yaml:"sensorfetcher,omitempty"`
 	BWTester      BWTesterProbe      `yaml:"bwtester,omitempty"`
+	PingPong      PingPongProbe      `yaml:"pingpong,omitempty"`
 
 	// Catches all undefined fields and must be empty after parsing.
 	XXX map[string]interface{} `yaml:",inline"`
@@ -133,6 +134,12 @@ type SensorFetcherProbe struct {
 
 type BWTesterProbe struct {
 	Client          string `yaml:"client,omitempty"`
+	Timeout         int    `yaml:"timeout,omitempty"`
+	ValidationRegex string `yaml:"validation_regex,omitempty"`
+}
+
+type PingPongProbe struct {
+	Local          string `yaml:"local,omitempty"`
 	Timeout         int    `yaml:"timeout,omitempty"`
 	ValidationRegex string `yaml:"validation_regex,omitempty"`
 }

@@ -61,6 +61,7 @@ var (
 		"imagefetcher":  prober.ProbeImageFetcher,
 		"sensorfetcher": prober.ProbeSensorFetcher,
 		"bwtester":      prober.ProbeBWTester,
+		"pingpong":		 prober.ProbePingPong,
 	}
 )
 
